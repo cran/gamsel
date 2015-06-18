@@ -1,0 +1,15 @@
+Package: gamsel
+Type: Package
+Title: Fit Regularization Path for Generalized Additive Models
+Version: 1.7-3
+Date: 2015-06-18
+Author: Alexandra Chouldechova and Trevor Hastie
+Maintainer: Trevor Hastie <hastie@stanford.edu>
+Description: Using overlap grouped lasso penalties, gamsel selects whether a term in a gam is nonzero, linear, or a non-linear spline (up to a specified max df per variable). It fits the entire regularization path on a grid of values for the overall penalty lambda, both for gaussian and binomial families. 
+License: GPL-2
+Depends: mda, foreach
+URL: http://arxiv.org/abs/1506.03850
+NeedsCompilation: yes
+Packaged: 2015-06-19 05:44:32 UTC; hastie
+Repository: CRAN
+Date/Publication: 2015-06-19 08:45:13

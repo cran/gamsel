@@ -1,0 +1,12 @@
+useDynLib("gamsel")
+importFrom(utils,head,tail,packageDescription)
+import(foreach)
+import(mda)
+export(gamsel, plot.gamsel, print.gamsel,summary.gamsel,predict.gamsel,cv.gamsel,plot.cv.gamsel,pseudo.bases,basis.gen,basis.subset,getActive,gendata,getmin,mspline)
+S3method("print","gamsel")
+S3method("plot","gamsel")
+S3method("predict","gamsel")
+S3method("plot","cv.gamsel")
+S3method("summary","gamsel")
+
+
