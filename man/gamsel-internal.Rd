@@ -5,7 +5,6 @@
 \alias{fracdev}
 \alias{gendata}
 \alias{getmin}
-\alias{mspline}
 \alias{norm2}
 \alias{poly}
 \alias{getmin}
@@ -17,6 +16,6 @@
 basis.subset(basis.object,subset,...)
 }
 \author{Trevor Hastie}
-\details{These are not intended for use by users. 
+\details{These are not intended for use by users.
 }
 \keyword{internal}

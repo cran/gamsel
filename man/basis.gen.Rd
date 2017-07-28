@@ -9,7 +9,7 @@ generates a basis for a single \code{x}, and \code{pseudo.bases}
 generates a list of bases for each column of the matrix \code{x}.
 }
 \usage{
-basis.gen(x, df = 6, thresh = 0.01, degree = 8, parms = NULL)
+basis.gen(x, df = 6, thresh = 0.01, degree = 8, parms = NULL,...)
 pseudo.bases(x, degree = 8, df = 6, parallel=FALSE, ...)
 }
 \arguments{
@@ -23,13 +23,13 @@ The degrees of freedom of the smoothing spline.
 If the next eigenvector improves the approximation by less than
 threshold, a truncated bases is returned. For \code{pseudo.bases} this can be a single
 value or a vector of values, which are recycled sequentially for each
-column of \code{x} 
+column of \code{x}
 }
   \item{degree}{
 The nominal number of basis elements. The basis returned has no more
 than \code{degree} columns. For \code{pseudo.bases} this can be a single
 value or a vector of values, which are recycled sequentially for each
-column of \code{x} 
+column of \code{x}
 }
   \item{parms}{
 A parameter set. If included in the call, these are used to define the
@@ -48,7 +48,7 @@ smoothing spline of rank equal to the degree. See the reference for
 details. The function also
 approximates the appropriate diagonal penalty matrix for this basis, so
 that the a approximate smoothing spline (generalized ridge regression)
-has the target df. 
+has the target df.
 }
 \value{
   An orthonormal basis is returned (a list for \code{pseudo.bases}).

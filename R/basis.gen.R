@@ -1,6 +1,7 @@
-"basis.gen" <- function(x, df = 6, thresh=0.01, degree = 8, parms=NULL)
+"basis.gen" <- function(x, df = 6, thresh=0.01, degree = 8, parms=NULL,...)
 {
-  if(!is.null(parms)){#prediction
+##uses the function mspline in the mda package, which fits a vector spline
+    if(!is.null(parms)){#prediction
     poly(x,degree=parms$degree,coefs=parms$coefs)%*%parms$rotate
   } else
   {
@@ -14,11 +15,8 @@
     px <- poly(x, degree=degree)
     if(degree > 1){
       spx <- px
-      spx[,2:degree]=mspline(x,px[,2:degree,drop=FALSE],df=sdf)
-##       for(k in 2:degree) {
-##         sfit <- smooth.spline(x, px[, k], df=sdf,tol=1e-5)
-##         spx[, k] <- predict(sfit, x)$y
-##       }
+#      spx[,2:degree]=mspline(x,px[,2:degree,drop=FALSE],df=sdf)
+      spx[,2:degree]=mspline(x,px[,2:degree,drop=FALSE],df=sdf)$s
       psp <- matrix(0, degree, degree)
       psp[1, 1] <- 1
       for(k in 2:degree) {
