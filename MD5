@@ -1,4 +1,4 @@
-da4837bf8002026ce9accc7067339a40 *DESCRIPTION
+85abd56ccaa2af14b91229e4bc82d5b7 *DESCRIPTION
 28a43baee1ff50464401308d61495d8e *NAMESPACE
 f752ec182327a19e22de0c6c5df7d2be *R/basis.gen.R
 85c61c1caa3a8473079cc66f85e9fa56 *R/basis.subset.R
@@ -19,7 +19,7 @@ b739081ed68f06f823e46b50007192d4 *R/poly.R
 85230955f149e5bb6bdd8ee479e826c8 *R/print.gamsel.R
 b27898fde0aed799fd565c7d2cd24371 *R/pseudo.bases.R
 ec6340be623d709b75fcb6ce14c8a6d6 *R/summary.gamsel.R
-9cb69bd49747025e71320b684925730d *R/summarynz.R
+f812fb4d2f4484c280894bc71b9e8647 *R/summarynz.R
 3c83cd01e0a46fe9c60ff9b5342d1445 *R/summaryplot.R
 5b8248a39fc3ed2dba94da56eb7b6126 *man/basis.gen.Rd
 50b75fcc9b1e1405c2a476827cdef97f *man/cv.gamsel.Rd
