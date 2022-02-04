@@ -1,3 +1,18 @@
+#' Returns active variables
+#' 
+#' Extract active variables of different kinds from a gamsel object
+#' 
+#' Returns a vector of variables indices of variables having the desired
+#' properties.
+#' 
+#' @param object gamsel object
+#' @param index index or vector of indices at which to obtain active
+#' information. \code{NULL} returns all.
+#' @param type type of active variables to report. One of \code{c("nonzero",
+#' "linear", "nonlinear")}
+#' @param EPS threshold for what is nonzero; default is 0
+#' @return vector of indices
+#' @export getActive
 getActive<-
   function(object, index=NULL, type=c("nonzero","linear","nonlinear"),EPS=0) {
     if(is.null(index))index=seq(along=object$interecept)

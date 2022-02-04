@@ -1,3 +1,10 @@
+// before any R headers, or define in PKG_CPPFLAGS
+#define USE_FC_LEN_T
+#include <Rconfig.h>
+#include <R_ext/BLAS.h>
+#ifndef FCONE
+# define FCONE
+#endif
 #include <assert.h>
 #include <R.h>
 #include <Rinternals.h>
@@ -126,7 +133,7 @@ double calculateLambdaMax(int *n, int *p, double *X, double *U, double *y,
     curr_max = max(curr_max, norm);
     // Calculate beta norm
     F77_CALL(dgemv)("T",n,degrees+j,&one,U+(*n)*(cum_degrees[j]),n,y,
-      &inc_one, &zero, Ujy, &inc_one);
+      &inc_one, &zero, Ujy, &inc_one FCONE);
     for(int i=0; i<degrees[j];i++) {
       trDinv += 1/D[cum_degrees[j] + i];
     }
@@ -171,7 +178,7 @@ double calculateObjective(int *n, int *p, double *X, double *U, double *y,
       }
     }
     if(active_beta[j] == 1) {
-      F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, betas + cum_degrees[j], &inc_one, &one, fit, &inc_one);
+      F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, betas + cum_degrees[j], &inc_one, &one, fit, &inc_one FCONE);
     }
     // Increment fit by X*alpha
     // F77_CALL(dgemv)("N", n, p, &one, X, n, alphas, &inc_one, &one, fit, &inc_one);
@@ -339,13 +346,13 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
     // Calculate residual
     vectorDifference(n,y,fit,resid);
     // Adjust resdiual for contribution of beta_j
-    F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, betas+cum_degrees[j], &inc_one, &zero, UjBj, &inc_one);
+    F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, betas+cum_degrees[j], &inc_one, &zero, UjBj, &inc_one FCONE);
     for(int i=0; i<*n; i++) {
       resid[i] += UjBj[i];
     }
     // Compute D^{-1/2} * U_j^T * resid
     F77_CALL(dgemv)("T", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, resid, 
-      &inc_one, &zero, DinvUjr, &inc_one);
+      &inc_one, &zero, DinvUjr, &inc_one FCONE);
     for(int i=0; i<degrees[j]; i++) {
       DinvUjr[i] = DinvUjr[i] / sqrt(D[cum_degrees[j]+i]);
     }
@@ -375,13 +382,13 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
     // Calculate residual
     vectorDifference(n,z,fit,resid);
     // Adjust resdiual for contribution of beta_j
-    F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, betas+cum_degrees[j], &inc_one, &zero, UjBj, &inc_one);
+    F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, betas+cum_degrees[j], &inc_one, &zero, UjBj, &inc_one FCONE);
     for(int i=0; i<*n; i++) {
       resid[i] += UjBj[i];
     }
     // Compute D^{-1/2} * U_j^T * resid
     F77_CALL(dgemv)("T", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, resid, 
-      &inc_one, &zero, DinvUjr, &inc_one);
+      &inc_one, &zero, DinvUjr, &inc_one FCONE);
     for(int i=0; i<degrees[j]; i++) {
       DinvUjr[i] = DinvUjr[i] / sqrt(D[cum_degrees[j]+i]);
     }
@@ -462,7 +469,7 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
     // }
     // Compute gradient = D^{-1/2} * U_j^T * resid
     F77_CALL(dgemv)("T", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, resid, 
-      &inc_one, &zero, gradient, &inc_one);
+      &inc_one, &zero, gradient, &inc_one FCONE);
     for(int i=0; i<degrees[j]; i++) {
       gradient[i] = gradient[i] / sqrt(D[cum_degrees[j]+i]);
       // Compute D^{-1} theta = D^{-1/2} beta
@@ -507,7 +514,7 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
   if(equal_Flag != 0) {
     double *Ujbeta_diff = Calloc(*n, double);
     F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, beta_diff, 
-      &inc_one, &zero, Ujbeta_diff, &inc_one);
+      &inc_one, &zero, Ujbeta_diff, &inc_one FCONE);
     for(int i=0; i<*n; i++) {
       fit[i] += Ujbeta_diff[i];
     }

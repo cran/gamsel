@@ -1,4 +1,15 @@
-"basis.gen" <- function(x, df = 6, thresh=0.01, degree = 8, parms=NULL,...)
+#' Generate basis
+#' @inheritParams pseudo.bases
+#' @param thresh If the next eigenvector improves the approximation by less
+#' than threshold, a truncated bases is returned. For \code{pseudo.bases} this
+#' can be a single value or a vector of values, which are recycled sequentially
+#' for each column of \code{x}
+#' @param parms A parameter set. If included in the call, these are used to
+#' define the basis. This is used for prediction.
+#' @param \dots other arguments
+#' @return the basis
+#' @export basis.gen
+basis.gen <- function(x, df = 6, thresh=0.01, degree = 8, parms=NULL,...)
 {
 ##uses the function mspline in the mda package, which fits a vector spline
     if(!is.null(parms)){#prediction
@@ -51,3 +62,6 @@
     sbasis
   }
 }
+
+
+
