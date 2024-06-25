@@ -1,4 +1,4 @@
-34a61041a325578f49faf2ebc6933be6 *DESCRIPTION
+f424e6acbef1c02ad574a640ab3607af *DESCRIPTION
 8ea05063b8f9b01219fa033158b0f430 *NAMESPACE
 e18b684ebe3460f98d0a4a04e3099860 *R/basis.gen.R
 85c61c1caa3a8473079cc66f85e9fa56 *R/basis.subset.R
@@ -23,6 +23,8 @@ d5512c6e6c89d3e00d11eac7684442f5 *R/predict.gamsel.R
 9b5ba167ff5bc1d22aae06840e1c00f1 *R/summary.gamsel.R
 9cb69bd49747025e71320b684925730d *R/summarynz.R
 3c83cd01e0a46fe9c60ff9b5342d1445 *R/summaryplot.R
+fb30e9618e23dc2fdb660196ab695cb9 *README.md
+9c748b328aeaa15c471f7bd3a0172a9e *inst/doc/gamselVignette.pdf
 ca30ea1ec79a4caecc93fac962b23dae *inst/extdata/gamsel_example.RDS
 741d0207b96d3d132290e08bd761b4f2 *man/basis.gen.Rd
 4fb219f283b896290d3f24e063510a11 *man/cv.gamsel.Rd

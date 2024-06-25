@@ -1,13 +1,14 @@
 Package: gamsel
 Type: Package
 Title: Fit Regularization Path for Generalized Additive Models
-Version: 1.8-2
-Date: 2022-02-03
+Version: 1.8-3
+Date: 2024-06-25
 Authors@R: c(person("Alexandra", "Chouldechova", role=c("aut")),
 	     person("Trevor", "Hastie", role=c("aut", "cre"), email = "hastie@stanford.edu"),
 	     person("Balasubramanian", "Narasimhan", role=c("ctb")),
-	     person("Vitalie", "Spinu", role=c("ctb")))
-Description: Using overlap grouped-lasso penalties, 'gamsel' selects whether a term in a 'gam' is nonzero, linear, or a non-linear spline (up to a specified max df per variable). It fits the entire regularization path on a grid of values for the overall penalty lambda, both for gaussian and binomial families.
+	     person("Vitalie", "Spinu", role=c("ctb")),
+	     person("Matt","Wand",role=c("ctb")))
+Description: Using overlap grouped-lasso penalties, 'gamsel' selects whether a term in a 'gam' is nonzero, linear, or a non-linear spline (up to a specified max df per variable). It fits the entire regularization path on a grid of values for the overall penalty lambda, both for gaussian and binomial families. See  <doi:10.48550/arXiv.1506.03850> for more details.
 License: GPL-2
 Imports: foreach, mda, splines
 URL: https://arxiv.org/abs/1506.03850
@@ -15,11 +16,12 @@ Encoding: UTF-8
 RoxygenNote: 7.1.2
 Depends: R (>= 3.6)
 NeedsCompilation: yes
-Packaged: 2022-02-04 11:55:25 UTC; hastie
+Packaged: 2024-06-25 21:53:16 UTC; hastie
 Author: Alexandra Chouldechova [aut],
   Trevor Hastie [aut, cre],
   Balasubramanian Narasimhan [ctb],
-  Vitalie Spinu [ctb]
+  Vitalie Spinu [ctb],
+  Matt Wand [ctb]
 Maintainer: Trevor Hastie <hastie@stanford.edu>
 Repository: CRAN
-Date/Publication: 2022-02-04 13:50:02 UTC
+Date/Publication: 2024-06-25 22:20:06 UTC
