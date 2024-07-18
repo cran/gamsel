@@ -124,9 +124,9 @@ double calculateLambdaMax(int *n, int *p, double *X, double *U, double *y,
                           int *family, double gamma) {
   double curr_max = 0.0;
   double norm = 0.0;
-  double trDinv;
+  // double trDinv;
   for(int j=0;j<*p;j++){
-    trDinv = 0.0;
+    // trDinv = 0.0;
     double *Ujy = malloc(degrees[j]*sizeof(double));
     // Calculate alpha norm
     norm = fabs(F77_CALL(ddot)(n, X+(*n)*j, &inc_one, y, &inc_one))/gamma;
@@ -134,9 +134,9 @@ double calculateLambdaMax(int *n, int *p, double *X, double *U, double *y,
     // Calculate beta norm
     F77_CALL(dgemv)("T",n,degrees+j,&one,U+(*n)*(cum_degrees[j]),n,y,
       &inc_one, &zero, Ujy, &inc_one FCONE);
-    for(int i=0; i<degrees[j];i++) {
-      trDinv += 1/D[cum_degrees[j] + i];
-    }
+    /* for(int i=0; i<degrees[j];i++) { */
+    /*   trDinv += 1/D[cum_degrees[j] + i]; */
+    /* } */
     // Calculate norm of D^{-1/2}Ujy and scale
     free(Ujy);
   }
@@ -646,7 +646,7 @@ SEXP gamselFit(SEXP R_y, SEXP R_X, SEXP R_U, SEXP R_tol,
   }
   
   int iter=1; // Count number of passes through the variables
-  int num_quadratic_updates = 0;
+  // int num_quadratic_updates = 0;
   int num_outer_loops = 0;
   double dotprod;
   double *resid = malloc(n*sizeof(double));
@@ -690,7 +690,7 @@ SEXP gamselFit(SEXP R_y, SEXP R_X, SEXP R_U, SEXP R_tol,
     
     while(changedFlag > 0) {
       changedFlag = 0;
-      num_quadratic_updates = 0.0;
+      // num_quadratic_updates = 0.0;
       
       /** Update working response and weights */
       if(family == 1) {
@@ -758,7 +758,7 @@ SEXP gamselFit(SEXP R_y, SEXP R_X, SEXP R_U, SEXP R_tol,
             w[i] = 0.25;
             z[i] = fit[i] + (y[i] - prob[i])/w[i];
           }
-          num_quadratic_updates++;
+          //num_quadratic_updates++;
         }
         /** End quadratic approximation update */
   

@@ -1,0 +1,30 @@
+---
+title: "gamsel: Generalized Additive Model Selection"
+author: "Trevor Hastie and Matt P. Wand"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+  fig_caption: yes
+  theme: cerulean
+  toc: yes
+  toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{gamsel}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+The R package [gamsel](https://cran.r-project.org/package=gamsel)
+implements an algorithm for generalized additive model selection
+developed by and described in [Chouldechova &
+Hastie](https://doi.org/10.48550/arXiv.1506.03850). The algorithm
+delivers a path of selected models that is parameterized by a positive
+scalar parameter, denoted by $\lambda$. Higher values of $\lambda$
+correspond to sparser models.
+
+[In this vignette](https://hastie.su.domains/swData/gamsel/gamselVignette.pdf) we
+work through some illustrative examples involving simulated and actual
+data. We explain how to deal with issues arising in actual data such
+as candidate predictors that are categorical, heavily skewed or
+ostensibly are continuous but have a low number of unique observed
+values.

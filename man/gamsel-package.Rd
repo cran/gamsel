@@ -13,6 +13,13 @@ gaussian and binomial families. Key functions are \link{gamsel},
 \link{predict.gamsel}, \link{plot.gamsel}, \link{print.gamsel}, \link{summary.gamsel},
 \link{cv.gamsel}, \link{plot.cv.gamsel}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://arxiv.org/abs/1506.03850}
+}
+
+}
 \author{
 Alexandra Chouldechova, Trevor Hastie Maintainer: Trevor Hastie
 \email{hastie@stanford.edu}
