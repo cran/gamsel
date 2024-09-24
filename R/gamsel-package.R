@@ -13,11 +13,10 @@
 #' @import splines
 #' @import foreach
 #' @import mda
-#' @docType package
 #' @author Alexandra Chouldechova, Trevor Hastie Maintainer: Trevor Hastie
 #' \email{hastie@@stanford.edu}
 #' @keywords generalized additive models regression package
-NULL
+"_PACKAGE"
 
 
 

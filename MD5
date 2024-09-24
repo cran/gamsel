@@ -1,4 +1,4 @@
-8ae6eafb95deefd30083397d3efa4b48 *DESCRIPTION
+8c03f7c431c28a286ef455478288f02b *DESCRIPTION
 8ea05063b8f9b01219fa033158b0f430 *NAMESPACE
 e18b684ebe3460f98d0a4a04e3099860 *R/basis.gen.R
 85c61c1caa3a8473079cc66f85e9fa56 *R/basis.subset.R
@@ -7,7 +7,7 @@ b764b81bfaed46e79f7de3bcaa2bdfd3 *R/df.inv.R
 0c6c0b1dfa5c98b55f2e9e097df3747d *R/error.bars.R
 87f9f455902daabb75acf5253322b7a0 *R/fracdev.R
 3d6243b4530ce2a679eb12f52e4d8904 *R/gamsel-internal.R
-4a31b39dc0359083deb351f064e3f6be *R/gamsel-package.R
+fd32b9f4959fa6e27a1cabeb52ccedd8 *R/gamsel-package.R
 7a670b6366d16341b1e6201bf263fffe *R/gamsel.R
 758a1a94939e6dd800ca0e07fd9fd657 *R/gendata.R
 00e64d7e2c8dbf0f3b3d25542bdd591a *R/getActive.R
@@ -27,7 +27,7 @@ fb30e9618e23dc2fdb660196ab695cb9 *README.md
 f0f4069d3d3adef150836f9e46e7485e *build/vignette.rds
 2ac31d1cb9e554b9f439248e4439fad5 *cleanup
 4fe78b331e89ef76ec24d632b3781bff *inst/doc/gamsel.Rmd
-b9bbab466d3134efb779c497bccc33f5 *inst/doc/gamsel.html
+a779cfeb8042110db98caa9d99060afd *inst/doc/gamsel.html
 ca30ea1ec79a4caecc93fac962b23dae *inst/extdata/gamsel_example.RDS
 741d0207b96d3d132290e08bd761b4f2 *man/basis.gen.Rd
 4fb219f283b896290d3f24e063510a11 *man/cv.gamsel.Rd
@@ -42,6 +42,6 @@ f4fe52c58a7c929764c58a62e4a5648a *man/plot.cv.gamsel.Rd
 c9b239aa66c656bc2e8a122623092a24 *man/pseudo.bases.Rd
 8d43da3256b30e26dcb5b5afd3baa725 *man/summary.gamsel.Rd
 2fa4c7011c2bc0f7449ae151d5cc44ae *src/Makevars
-aa7c6b561b48a4f259d6c6665e105b3e *src/gamsel.c
+80236950fe11bf7a02f5d7d25a8fcea6 *src/gamsel.c
 a16f4ea570388571230f58d3b16661d3 *src/gamsel.h
 4fe78b331e89ef76ec24d632b3781bff *vignettes/gamsel.Rmd

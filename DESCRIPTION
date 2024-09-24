@@ -1,8 +1,8 @@
 Package: gamsel
 Type: Package
 Title: Fit Regularization Path for Generalized Additive Models
-Version: 1.8-4
-Date: 2024-07-18
+Version: 1.8-5
+Date: 2024-09-24
 Authors@R: c(person("Alexandra", "Chouldechova", role=c("aut")),
 	     person("Trevor", "Hastie", role=c("aut", "cre"), email = "hastie@stanford.edu"),
 	     person("Balasubramanian", "Narasimhan", role=c("ctb")),
@@ -13,12 +13,12 @@ License: GPL-2
 Imports: foreach, mda, splines
 URL: https://arxiv.org/abs/1506.03850
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends: R (>= 3.6)
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: yes
-Packaged: 2024-07-18 21:58:23 UTC; hastie
+Packaged: 2024-09-24 19:47:33 UTC; hastie
 Author: Alexandra Chouldechova [aut],
   Trevor Hastie [aut, cre],
   Balasubramanian Narasimhan [ctb],
@@ -26,4 +26,4 @@ Author: Alexandra Chouldechova [aut],
   Matt Wand [ctb]
 Maintainer: Trevor Hastie <hastie@stanford.edu>
 Repository: CRAN
-Date/Publication: 2024-07-18 22:20:05 UTC
+Date/Publication: 2024-09-24 21:50:03 UTC

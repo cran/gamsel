@@ -167,7 +167,7 @@ double calculateObjective(int *n, int *p, double *X, double *U, double *y,
   double spline_penalty = 0.0; 
   double group_norm_squared = 0.0;
   int group_start_index = 0;
-  double *resid = Calloc(*n, double);
+  double *resid = R_Calloc(*n, double);
   
   memset(fit, 0.0, (*n)*sizeof(double));
   /** Calculate linear fit:    */
@@ -210,7 +210,7 @@ double calculateObjective(int *n, int *p, double *X, double *U, double *y,
     }
   }
     
-  double *Dbeta = Calloc(*numcolsU, double);
+  double *Dbeta = R_Calloc(*numcolsU, double);
   for(int i=0; i<*numcolsU; i++) {
     Dbeta[i] = betas[i]*D[i];
   }
@@ -231,8 +231,8 @@ double calculateObjective(int *n, int *p, double *X, double *U, double *y,
   if(*family == 0) obj*=0.5;
   obj += lasso_penalty + group_penalty + 0.5*spline_penalty;
   // obj = obj/(*n);  // Apply 1/n factor
-  Free(resid);
-  Free(Dbeta);
+  R_Free(resid);
+  R_Free(Dbeta);
   return obj;
 }
 
@@ -246,7 +246,7 @@ void updateIntercept(double *alpha0, int *n, double *y, double *fit, int *family
     alpha0[0] = diff/(*n);
   } else if (*family == 1) {
     // 1-d Newton-Raphson algorithm for logistic intercept
-    double *fit_no_intercept = Calloc(*n, double);
+    double *fit_no_intercept = R_Calloc(*n, double);
     double tol = 1e-5;
     double old_alpha0 = alpha0[0];
     double new_alpha0 = alpha0[0] + 1;
@@ -272,7 +272,7 @@ void updateIntercept(double *alpha0, int *n, double *y, double *fit, int *family
     // hard code:
     // alpha0[0] = 0.05;
     alpha0[0] = new_alpha0;
-    Free(fit_no_intercept);
+    R_Free(fit_no_intercept);
   } 
 }
 
@@ -282,7 +282,7 @@ int updateAlpha(int j, int *n, double *y, double *x, double *fit, double *lambda
                 double *z, double *w, int *family) {
   int nonzero = 1;
   double dotprod = 0.0;
-  double *resid = Calloc(*n, double);
+  double *resid = R_Calloc(*n, double);
   double alpha_old = alphas[j];
   if(*family == 0) {  // Linear regression
     vectorDifference(n, y, fit, resid);  // Calculate full residual
@@ -324,7 +324,7 @@ int updateAlpha(int j, int *n, double *y, double *x, double *fit, double *lambda
       fit[i] += x[i]*(alphas[j] - alpha_old);
     }
   }
-  Free(resid);
+  R_Free(resid);
   return nonzero;
 }
 
@@ -332,10 +332,10 @@ int updateAlpha(int j, int *n, double *y, double *x, double *fit, double *lambda
 
 // Beta vector update
 int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas, double *lambdas_alpha, double *psis, double *D, int *degrees, int *cum_degrees, double *betas, double *alphas, double *z, int *family) {
-  double *resid = Calloc(*n, double);
-  double *UjBj = Calloc(*n, double);
-  double *DinvUjr = Calloc(degrees[j], double);
-  double *old_beta = Calloc(degrees[j], double);
+  double *resid = R_Calloc(*n, double);
+  double *UjBj = R_Calloc(*n, double);
+  double *DinvUjr = R_Calloc(degrees[j], double);
+  double *old_beta = R_Calloc(degrees[j], double);
   int nonzero = 1;
   
   // Store old value of beta
@@ -364,7 +364,7 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
       }
       nonzero = 0;
     } else {
-      double *Dstar = Calloc(degrees[j], double);
+      double *Dstar = R_Calloc(degrees[j], double);
       // Form D*
       for(int i=0; i<degrees[j]; i++) {
         Dstar[i] = psis[j] + 1/D[cum_degrees[j]+i];
@@ -376,7 +376,7 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
       for(int i=0; i<degrees[j]; i++) {
         betas[cum_degrees[j]+i] = (DinvUjr[i]/sqrt(D[cum_degrees[j]+i]))/(Dstar[i] + lambdas[j]/c);
       }
-      Free(Dstar);
+      R_Free(Dstar);
     }
   } else if(*family == 1){
     // Calculate residual
@@ -400,7 +400,7 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
       }
       nonzero = 0;
     } else {
-      double *Dstar = Calloc(degrees[j], double);
+      double *Dstar = R_Calloc(degrees[j], double);
       // Form D*
       for(int i=0; i<degrees[j]; i++) {
         Dstar[i] = 4*psis[j] + 1/D[cum_degrees[j]+i];
@@ -444,14 +444,14 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
       for(int i=0; i<degrees[j]; i++) {
         betas[cum_degrees[j]+i] = new_beta[i];
       }
-      Free(Dstar);
+      R_Free(Dstar);
       free(new_beta);
     }
   } else if(*family == 2) {  // Logistic regression updates
-    double *gradient = Calloc(degrees[j], double);
-    double *DinvTheta = Calloc(degrees[j], double);
-    double *prob = Calloc(*n, double);
-    double *grad_plus_dinv = Calloc(degrees[j], double);
+    double *gradient = R_Calloc(degrees[j], double);
+    double *DinvTheta = R_Calloc(degrees[j], double);
+    double *prob = R_Calloc(*n, double);
+    double *grad_plus_dinv = R_Calloc(degrees[j], double);
     double norm_grad_plus_dinv;
     for(int i=0; i<degrees[j]; i++) {
       prob[i] = 1/(1 + exp(-fit[i]));
@@ -484,7 +484,7 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
         betas[cum_degrees[j] + i] = 0.0;
       } 
     } else {
-      double *Dstar = Calloc(degrees[j], double);
+      double *Dstar = R_Calloc(degrees[j], double);
       // Form D*
       for(int i=0; i<degrees[j]; i++) {
         Dstar[i] = psis[j] + 0.25/D[cum_degrees[j]+i];
@@ -496,14 +496,14 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
       for(int i=0; i<degrees[j]; i++) {
         betas[cum_degrees[j]+i] = (grad_plus_dinv[i]/sqrt(D[cum_degrees[j]+i]))/(Dstar[i] + lambdas[j]/c);
       }
-      Free(Dstar);
+      R_Free(Dstar);
     }
-    Free(gradient);
-    Free(DinvTheta);
-    Free(prob);
+    R_Free(gradient);
+    R_Free(DinvTheta);
+    R_Free(prob);
   }
   /** Fitted value update step */
-  double *beta_diff = Calloc(degrees[j], double);
+  double *beta_diff = R_Calloc(degrees[j], double);
   int equal_Flag = 0;
   for(int i=0; i<degrees[j]; i++) {
     beta_diff[i] = betas[cum_degrees[j]+i] - old_beta[i];
@@ -512,20 +512,20 @@ int updateBeta(int j, int *n, double *y, double *U, double *fit, double *lambdas
     }
   }
   if(equal_Flag != 0) {
-    double *Ujbeta_diff = Calloc(*n, double);
+    double *Ujbeta_diff = R_Calloc(*n, double);
     F77_CALL(dgemv)("N", n, degrees+j, &one, U+(*n)*(cum_degrees[j]), n, beta_diff, 
       &inc_one, &zero, Ujbeta_diff, &inc_one FCONE);
     for(int i=0; i<*n; i++) {
       fit[i] += Ujbeta_diff[i];
     }
-    Free(Ujbeta_diff);
+    R_Free(Ujbeta_diff);
   }
   
-  Free(resid);
-  Free(UjBj);
-  Free(old_beta);
-  Free(DinvUjr);
-  Free(beta_diff);
+  R_Free(resid);
+  R_Free(UjBj);
+  R_Free(old_beta);
+  R_Free(DinvUjr);
+  R_Free(beta_diff);
   return nonzero;
 }
 
@@ -560,8 +560,8 @@ SEXP gamselFit(SEXP R_y, SEXP R_X, SEXP R_U, SEXP R_tol,
   int *cum_degrees = malloc(p*sizeof(int));  // Cumulative degrees for beta
   double *psis = malloc(p*sizeof(double));
   double *lambda_seq = malloc(num_lambda*sizeof(double));
-  double *residual_deviance = Calloc(num_lambda, double);
-  double *frac_deviance_explained = Calloc(num_lambda, double);
+  double *residual_deviance = R_Calloc(num_lambda, double);
+  double *frac_deviance_explained = R_Calloc(num_lambda, double);
   // Set cum_degrees
   int curr_sum = 0;
   for(int i=0; i<p; i++) {
@@ -598,30 +598,30 @@ SEXP gamselFit(SEXP R_y, SEXP R_X, SEXP R_U, SEXP R_tol,
   double *lambdas_alpha = malloc(p*sizeof(double));    
   double *lambdas_beta = malloc(p*sizeof(double)); 
   // Fitted values
-  double *fit = Calloc(n, double);
+  double *fit = R_Calloc(n, double);
   // Working response (logistic regression)
-  double *z = Calloc(n, double);
+  double *z = R_Calloc(n, double);
   // Probabilities (logistic regression)
-  double *prob = Calloc(n, double);
+  double *prob = R_Calloc(n, double);
   // Weights (logistic regression)
-  double *w = Calloc(n, double);
+  double *w = R_Calloc(n, double);
   
   // Allocate output
   SEXP R_all_alpha0 = PROTECT(allocVector(REALSXP, num_lambda));
   SEXP R_all_alphas = PROTECT(allocMatrix(REALSXP, p, num_lambda));
   SEXP R_all_betas =  PROTECT(allocMatrix(REALSXP, numcolsU, num_lambda));
   
-  double *alpha0 = Calloc(1, double);
-  double *alphas = Calloc(p, double);
-  double *betas = Calloc(numcolsU, double);
+  double *alpha0 = R_Calloc(1, double);
+  double *alphas = R_Calloc(p, double);
+  double *betas = R_Calloc(numcolsU, double);
   
   double old_obj = 0.0;
   double new_obj = 1.0;
   double pre_update_obj;
   double post_update_obj;
   int changedFlag = 1;     // Flag to determine if active set needs to be updated
-  int *active_alpha = Calloc(p, int);
-  int *active_beta = Calloc(p, int);
+  int *active_alpha = R_Calloc(p, int);
+  int *active_beta = R_Calloc(p, int);
   int is_nonzero = 0;
   for(int i=0; i<p; i++) {
     active_alpha[i] = 0;
@@ -873,17 +873,17 @@ SEXP gamselFit(SEXP R_y, SEXP R_X, SEXP R_U, SEXP R_tol,
     
   // Unprotect memory and return
   UNPROTECT(12);
-  Free(active_alpha);
-  Free(active_beta);
-  Free(alpha0);
-  Free(alphas);
-  Free(betas);
-  Free(fit);
-  Free(frac_deviance_explained);
-  Free(prob);
-  Free(residual_deviance);
-  Free(w);
-  Free(z);
+  R_Free(active_alpha);
+  R_Free(active_beta);
+  R_Free(alpha0);
+  R_Free(alphas);
+  R_Free(betas);
+  R_Free(fit);
+  R_Free(frac_deviance_explained);
+  R_Free(prob);
+  R_Free(residual_deviance);
+  R_Free(w);
+  R_Free(z);
   free(cum_degrees);
   free(lambda_seq);
   free(lambdas_alpha);
