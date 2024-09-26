@@ -15,7 +15,7 @@
 #' @export getActive
 getActive<-
   function(object, index=NULL, type=c("nonzero","linear","nonlinear"),EPS=0) {
-    if(is.null(index))index=seq(along=object$interecept)
+    if(is.null(index))index=seq(along=object$intercept)
     type=match.arg(type)
     anya=abs(object$alpha[,index,drop=FALSE])>EPS
     degrees=object$degrees
